@@ -5,24 +5,27 @@
 import { FormCheckbox, FormInputText, FormInputTextarea, FormSelectOption } from "@/libs/form";
 import { QueryClient, useMutation } from "@tanstack/react-query";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useState } from "react";
 import { useForm, SubmitHandler, Resolver } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Recipe } from "@/types/recipe";
 import { RecipeFormData, recipeFormSchema } from "@/validations/recipe";
-import { apiClient } from "@/libs/api";
+import { apiClient, apiDelay } from "@/libs/api";
+import { NotifMsg, NotifTimeout } from "@/libs/messages";
+import LoaderComp from "@/components/loader";
+import { CircleArrowLeft } from "lucide-react";
 
 type NewRecipeData = Omit<Recipe, 'id' | 'userId' | 'rating' | 'reviewCount'>;
 const ApiRecipeAdd = async (newRecipe: NewRecipeData): Promise<Recipe> => {
-  const response = await apiClient.post('/recipes/add', newRecipe);
+  const response = await apiClient.post('/recipes/add?delay=' + apiDelay, newRecipe);
   return response.data;
 };
 
 const RecipeAddPage = () => {
   const queryClient = new QueryClient();
-  const router = useRouter();
-  const { register, handleSubmit, formState: { errors } } = useForm<RecipeFormData>({
+  const [successMsg, setSuccessMsg] = useState('');
+
+  const { register, handleSubmit, reset, formState: { errors } } = useForm<RecipeFormData>({
     resolver: zodResolver(recipeFormSchema) as Resolver<RecipeFormData>,
     defaultValues: {
       ingredients: [],
@@ -31,30 +34,42 @@ const RecipeAddPage = () => {
       tags: [],
     },
   });
+
   const { isPending, mutateAsync } = useMutation({
     mutationKey: ['RecipeAdd'],
     mutationFn: (newRecipe: Omit<Recipe, "id" | "userId" | "rating" | "reviewCount">) => ApiRecipeAdd(newRecipe),
     onSuccess: (data: Recipe) => {
       console.log("Recipe added successfully:", data);
       queryClient.invalidateQueries({ queryKey: ['recipes'] });
-      router.push('/');
+      setSuccessMsg(`Recipe "${data.name}" added successfully.`);
+      setTimeout(() => setSuccessMsg(''), NotifTimeout);
+      reset();
     },
     onError: (error: Error) => {
       console.error("Error adding recipe:", error);
       alert("Failed to add recipe. Please try again.");
     }
   });
+
   const onSubmit: SubmitHandler<RecipeFormData> = async (data: RecipeFormData) => {
     mutateAsync(data);
   };
 
   return (
     <div className="max-w-3xl mx-auto">
+      {/* {isPending && ( */}
+        <LoaderComp />
+        {/* )} */}
+      {successMsg && (<NotifMsg message={successMsg} />)}
+
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="space-y-12">
           <div className="border-b border-gray-900/10 pb-8">
             <h2 className="text-2xl font-semibold">Add Recipe</h2>
-            <p className="text-sm/6 text-gray-400 border-b border-gray-900/10 pb-3">Fill in the details of your recipe below.</p>
+            <Link className="flex justify-start items-center gap-1 text-sm text-gray-400 hover:text-gray-700 cursor-pointer" href="/">
+              <CircleArrowLeft size={18} />
+              <span className="hover:underline">back to list</span>
+            </Link>
 
             <div className="mt-5 grid grid-cols-1 gap-x-5 gap-y-5 sm:grid-cols-6">
               <FormInputText
@@ -182,14 +197,14 @@ const RecipeAddPage = () => {
           <button
             type="submit"
             disabled={isPending}
-            className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 cursor-pointer"
+            className="form-input-submit"
           >
             {isPending ? "Saving..." : "Save Recipe"}
           </button>
           <Link
             href="/"
             type="button"
-            className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-xs inset-ring inset-ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto cursor-pointer"
+            className="form-input-cancel"
           >
             Cancel
           </Link>

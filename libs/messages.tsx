@@ -1,8 +1,8 @@
 //- libs/message.tsx
 
 import {
+  CircleCheck,
   Info,
-  MailCheck,
   Square,
 } from "lucide-react";
 
@@ -38,12 +38,14 @@ export const ErrMsg = ({
   return result;
 };
 
+export const NotifTimeout = Number(process.env.NEXT_PUBLIC_CONFIG_NOTIF_TIMEOUT ?? 1000);
+
 export const NotifMsg = ({ message = 'Success message'}: {message?: string}) => {
   return (
-    <div id="notif-message" className="fixed top-4 inset-0 z-0 text-center py-4 px-4">
-      <div className="p-2 px-6 py-3 bg-form-notif-bg border border-form-notif-border items-center leading-none rounded-full inline-flex animate-bounce transition-all" role="alert">
-        <MailCheck className="text-form-notif-text" />
-        <span className="ml-3 mr-2 text-left text-form-notif-text flex-auto">{message}</span>
+    <div id="notif-message" className="fixed top-2 right-2 z-50 text-center py-4 px-4">
+      <div className="p-2 px-4 py-3 bg-white border border-green-300 items-center leading-none rounded-lg inline-flex transition-all shadow-lg/5" role="alert">
+        <CircleCheck className="text-green-500" />
+        <span className="ml-3 text-left text-green-700 flex-auto">{message}</span>
       </div>
     </div>
   );

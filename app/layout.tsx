@@ -1,7 +1,7 @@
 //- app/layout.tsx
 
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono, Roboto, Roboto_Mono, Rubik } from "next/font/google";
+import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import ReactQueryProvider from "./provider";
 

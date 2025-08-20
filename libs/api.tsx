@@ -4,12 +4,14 @@ import axios from 'axios';
 import { Recipe, RecipesResponse } from '@/types/recipe';
 
 export const apiClient = axios.create({
-  baseURL: 'https://dummyjson.com',
+  baseURL: process.env.NEXT_PUBLIC_CONFIG_API_URL ?? 'https://dummyjson.com',
   headers: {
     'Content-Type': 'application/json',
     'Authorization': 'Bearer 123456',
   },
 });
+
+export const apiDelay = Number(process.env.NEXT_PUBLIC_CONFIG_API_DELAY ?? 1000);
 
 // Fungsi untuk mengambil SEMUA resep
 export const getRecipes = async (): Promise<RecipesResponse> => {
