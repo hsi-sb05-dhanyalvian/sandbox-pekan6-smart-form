@@ -1,5 +1,8 @@
+//- components/header.tsx
+
 import { ChefHat } from "lucide-react";
 import Link from "next/link";
+import { BackBtn, CreateBtn } from "./header-button";
 
 const Header = () => {
   return (
@@ -20,22 +23,11 @@ const Header = () => {
         </div>
 
         <div className="flex items-center sm:static sm:inset-auto sm:ml-6 sm:pr-0n mx-auto">
-          <Link
-            href="/recipes/add"
-            className="
-              px-3 py-1
-              bg-button hover:bg-button-hover
-              text-white text-sm font-semibold
-              cursor-pointer
-              rounded-full
-              shadow-md hover:shadow-lg
-              transition-all duration-300"
-          >
-            Create Recipe
-          </Link>
+          <CreateBtn />
+          <BackBtn />
         </div>
       </div>
-    </nav >
+    </nav>
   );
 }
 

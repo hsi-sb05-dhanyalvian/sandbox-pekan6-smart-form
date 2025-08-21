@@ -8,10 +8,10 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-  
+
   --color-nav: #ffffff;
   --color-button: var(--color-gray-700);
   --color-button-hover: var(--color-gray-950);
@@ -57,8 +57,23 @@ body {
     sm:text-sm/6 shadow-xs inset-ring-1;
 }
 
-.form-input-submit {
-  @apply rounded-md bg-indigo-600 px-3 py-2
+.input-button-primary {
+  @apply bg-button hover:bg-button-hover
+    text-white text-sm
+    rounded-full cursor-pointer
+    shadow-xs hover:shadow-md
+    transition-all duration-300;
+}
+.input-button-secondary {
+  @apply bg-white hover:bg-gray-50
+    text-gray-900 text-sm
+    inset-ring inset-ring-gray-300
+    rounded-full cursor-pointer
+    shadow-xs hover:shadow-md
+    transition-all duration-300;
+}
+/* .form-input-submit {
+  @apply rounded-md bg-indigo-600
     text-sm font-semibold text-white
     shadow-xs hover:bg-indigo-500
     focus-visible:outline-2 focus-visible:outline-offset-2
@@ -70,4 +85,4 @@ body {
     font-semibold text-gray-900 shadow-xs
     inset-ring inset-ring-gray-300 hover:bg-gray-50
     sm:mt-0 sm:w-auto cursor-pointer;
-}
+} */

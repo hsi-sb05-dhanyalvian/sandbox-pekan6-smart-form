@@ -13,7 +13,6 @@ import { RecipeFormData, recipeFormSchema } from "@/validations/recipe";
 import { apiClient, apiDelay } from "@/libs/api";
 import { NotifMsg, NotifTimeout } from "@/libs/messages";
 import LoaderComp from "@/components/loader";
-import { CircleArrowLeft } from "lucide-react";
 
 type NewRecipeData = Omit<Recipe, 'id' | 'userId' | 'rating' | 'reviewCount'>;
 const ApiRecipeAdd = async (newRecipe: NewRecipeData): Promise<Recipe> => {
@@ -63,10 +62,7 @@ const RecipeAddPage = () => {
         <div className="space-y-12">
           <div className="border-b border-gray-900/10 pb-8">
             <h2 className="text-2xl font-semibold">Add Recipe</h2>
-            <Link className="flex justify-start items-center gap-1 text-sm text-gray-400 hover:text-gray-700 cursor-pointer" href="/">
-              <CircleArrowLeft size={18} />
-              <span className="hover:underline">back to list</span>
-            </Link>
+            <p className="text-sm/6 text-gray-400 border-b border-gray-900/10 pb-3">Fill in the details of your recipe below.</p>
 
             <div className="mt-5 grid grid-cols-1 gap-x-5 gap-y-5 sm:grid-cols-6">
               <FormInputText
@@ -194,14 +190,14 @@ const RecipeAddPage = () => {
           <button
             type="submit"
             disabled={isPending}
-            className="form-input-submit"
+            className="px-3 py-2 input-button-primary font-semibold"
           >
             {isPending ? "Saving..." : "Save Recipe"}
           </button>
           <Link
             href="/"
             type="button"
-            className="form-input-cancel"
+            className="px-3 py-2 input-button-secondary font-semibold"
           >
             Cancel
           </Link>
