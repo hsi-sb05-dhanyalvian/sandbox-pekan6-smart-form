@@ -6,6 +6,7 @@ const cdnArr = (process.env.NEXT_PUBLIC_CONFIG_IMAGE_REMOTE ?? "").split(',');
 const cdnArrUrl = cdnArr.map((url) => (new URL(url)));
 
 const nextConfig: NextConfig = {
+  allowedDevOrigins: ['local-origin.dev', '*.local-origin.dev'],
   images: {
     remotePatterns: cdnArrUrl,
   },

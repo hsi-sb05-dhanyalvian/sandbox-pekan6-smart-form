@@ -2,9 +2,8 @@
 
 "use client";
 
-import { useQueries, useQuery } from "@tanstack/react-query";
-import Link from "next/link";
-import { apiClient, apiDelay } from "@/libs/api";
+import { useQueries } from "@tanstack/react-query";
+import { apiClient } from "@/libs/api";
 import { RecipesResponse } from "@/types/recipe";
 import LoaderComp from "@/components/loader";
 import { RecipeBlock } from "@/components/recipe";
@@ -12,8 +11,17 @@ import { RecipeBlock } from "@/components/recipe";
 const paramSelect = 'name,image,cuisine,difficulty';
 const paramLimit = 7;
 
-const ApiRecipeNewest = async (): Promise<RecipesResponse> => {
+const ApiNewestRecipes = async (): Promise<RecipesResponse> => {
   const { data } = await apiClient.get('/recipes', {
+    params: {
+      select: paramSelect,
+      limit: paramLimit,
+    }
+  });
+  return data;
+}
+const ApiAppetizerRecipes = async (): Promise<RecipesResponse> => {
+  const { data } = await apiClient.get('/recipes/meal-type/appetizer', {
     params: {
       select: paramSelect,
       limit: paramLimit,
@@ -52,7 +60,8 @@ const ApiDinnerRecipes = async (): Promise<RecipesResponse> => {
 const Homepage = () => {
   const results = useQueries({
     queries: [
-      { queryKey: ['newest-recipes'], queryFn: ApiRecipeNewest },
+      { queryKey: ['newest-recipes'], queryFn: ApiNewestRecipes },
+      { queryKey: ['appetizer-recipes'], queryFn: ApiAppetizerRecipes },
       { queryKey: ['breakfast-recipes'], queryFn: ApiBreakfastRecipes },
       { queryKey: ['lunch-recipes'], queryFn: ApiLunchRecipes },
       { queryKey: ['dinner-recipes'], queryFn: ApiDinnerRecipes },
@@ -60,23 +69,23 @@ const Homepage = () => {
   });
 
   const newestQuery = results[0];
-  const breakfastQuery = results[1];
-  const lunchQuery = results[2];
-  const dinnerQuery = results[3];
+  const appetizerQuery = results[1];
+  const breakfastQuery = results[2];
+  const lunchQuery = results[3];
+  const dinnerQuery = results[4];
 
   return (
     <>
       {newestQuery.isPending && (<LoaderComp />)}
-      <div className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl font-bold text-gray-900">Our Kitchen</h1>
-        <Link href="/recipes/add" className="bg-orange-500 text-white py-2 px-4 rounded-md hover:bg-orange-600">
-          + Tambah Resep
-        </Link>
-      </div>
 
       <RecipeBlock
         title="Newest Recipes"
         recipes={newestQuery.data?.recipes ?? []}
+      />
+      
+      <RecipeBlock
+        title="Appetizer Recipes"
+        recipes={appetizerQuery.data?.recipes ?? []}
       />
       
       <RecipeBlock

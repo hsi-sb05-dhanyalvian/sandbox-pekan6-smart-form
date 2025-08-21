@@ -39,7 +39,6 @@ const RecipeAddPage = () => {
     mutationKey: ['RecipeAdd'],
     mutationFn: (newRecipe: Omit<Recipe, "id" | "userId" | "rating" | "reviewCount">) => ApiRecipeAdd(newRecipe),
     onSuccess: (data: Recipe) => {
-      console.log("Recipe added successfully:", data);
       queryClient.invalidateQueries({ queryKey: ['recipes'] });
       setSuccessMsg(`Recipe "${data.name}" added successfully.`);
       setTimeout(() => setSuccessMsg(''), NotifTimeout);
@@ -191,7 +190,7 @@ const RecipeAddPage = () => {
           </div>
         </div>
 
-        <div className="mt-8 flex items-center justify-start gap-x-3">
+        <div className="mt-8 mb-8 flex items-center justify-start gap-x-3">
           <button
             type="submit"
             disabled={isPending}
