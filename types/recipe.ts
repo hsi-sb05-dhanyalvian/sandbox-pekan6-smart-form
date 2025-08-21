@@ -20,8 +20,15 @@ export interface Recipe {
 };
 
 export interface RecipesResponse {
+  title?: string,
   recipes: Recipe[];
   total: number;
   skip: number;
   limit: number;
 };
+
+export interface RecipesProps {
+  title: string,
+  recipes: Recipe[];
+  loader?: any;
+}

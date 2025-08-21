@@ -57,9 +57,7 @@ const RecipeAddPage = () => {
 
   return (
     <div className="max-w-3xl mx-auto">
-      {/* {isPending && ( */}
-        <LoaderComp />
-        {/* )} */}
+      {isPending && (<LoaderComp />)}
       {successMsg && (<NotifMsg message={successMsg} />)}
 
       <form onSubmit={handleSubmit(onSubmit)}>
