@@ -42,10 +42,10 @@ export const NotifTimeout = Number(process.env.NEXT_PUBLIC_CONFIG_NOTIF_TIMEOUT 
 
 export const NotifMsg = ({ message = 'Success message'}: {message?: string}) => {
   return (
-    <div id="notif-message" className="fixed top-2 right-2 z-50 text-center py-4 px-4">
-      <div className="p-2 px-4 py-3 bg-white border border-green-300 items-center leading-none rounded-lg inline-flex transition-all shadow-lg/5" role="alert">
-        <CircleCheck className="text-green-500" />
-        <span className="ml-3 text-left text-green-700 flex-auto">{message}</span>
+    <div id="notif-message" className="fixed top-0 left-0 w-screen flex items-center justify-center z-50 text-center py-2 px-4 mt-0.5">
+      <div className="p-2 px-2 py-2 bg-orange-50 border border-green-300 items-center leading-none rounded-lg inline-flex transition-all shadow-lg/5" role="alert">
+        <CircleCheck className="text-sm text-green-500" />
+        <span className="ml-1.5 text-sm text-left text-green-700 flex-auto">{message}</span>
       </div>
     </div>
   );

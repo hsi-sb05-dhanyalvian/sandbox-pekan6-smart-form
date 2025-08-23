@@ -136,3 +136,17 @@ export const FormCheckbox = ({
     ))}
   </FormField>
 );
+
+export const AutoScrollToTop = () => {
+  // Standard smooth scroll
+  if ("scrollBehavior" in document.documentElement.style) {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  } else {
+    // Fallback for older mobile browsers
+    window.scrollTo(0, 0);
+  }
+
+  // Extra fix for iOS Safari
+  document.body.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
+};

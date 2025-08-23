@@ -1,13 +1,15 @@
 @import "tailwindcss";
 
 :root {
-  --background: var(--color-gray-50);
+  --background: #ffffff;
   --foreground: #171717;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-main: var(--color-gray-50);
+  --color-secondary: #7b7b7b;
 
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
@@ -15,7 +17,7 @@
   --color-nav: #ffffff;
   --color-button: var(--color-gray-700);
   --color-button-hover: var(--color-gray-950);
-  --color-boundary: #e8e8e8;
+  --color-boundary: var(--color-stone-200);
 }
 
 body {
@@ -72,17 +74,3 @@ body {
     shadow-xs hover:shadow-md
     transition-all duration-300;
 }
-/* .form-input-submit {
-  @apply rounded-md bg-indigo-600
-    text-sm font-semibold text-white
-    shadow-xs hover:bg-indigo-500
-    focus-visible:outline-2 focus-visible:outline-offset-2
-    focus-visible:outline-indigo-600 cursor-pointer;
-}
-.form-input-cancel {
-  @apply mt-3 inline-flex w-full justify-center
-    rounded-md bg-white px-3 py-2 text-sm
-    font-semibold text-gray-900 shadow-xs
-    inset-ring inset-ring-gray-300 hover:bg-gray-50
-    sm:mt-0 sm:w-auto cursor-pointer;
-} */

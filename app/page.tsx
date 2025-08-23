@@ -3,7 +3,7 @@
 "use client";
 
 import { useQueries } from "@tanstack/react-query";
-import { apiClient } from "@/libs/api";
+import { ApiClient } from "@/libs/api";
 import { RecipesResponse } from "@/types/recipe";
 import LoaderComp from "@/components/loader";
 import { RecipeBlock } from "@/components/recipe";
@@ -12,7 +12,7 @@ const paramSelect = 'name,image,cuisine,difficulty';
 const paramLimit = 7;
 
 const ApiNewestRecipes = async (): Promise<RecipesResponse> => {
-  const { data } = await apiClient.get('/recipes', {
+  const { data } = await ApiClient.get('/recipes', {
     params: {
       select: paramSelect,
       limit: paramLimit,
@@ -21,7 +21,7 @@ const ApiNewestRecipes = async (): Promise<RecipesResponse> => {
   return data;
 }
 const ApiAppetizerRecipes = async (): Promise<RecipesResponse> => {
-  const { data } = await apiClient.get('/recipes/meal-type/appetizer', {
+  const { data } = await ApiClient.get('/recipes/meal-type/appetizer', {
     params: {
       select: paramSelect,
       limit: paramLimit,
@@ -29,17 +29,19 @@ const ApiAppetizerRecipes = async (): Promise<RecipesResponse> => {
   });
   return data;
 }
-const ApiBreakfastRecipes = async (): Promise<RecipesResponse> => {
-  const { data } = await apiClient.get('/recipes/meal-type/breakfast', {
+const ApiAsianRecipes = async (): Promise<RecipesResponse> => {
+  const { data } = await ApiClient.get('/recipes/tag/asian', {
     params: {
       select: paramSelect,
       limit: paramLimit,
+      sortBy: 'name',
+      order: 'asc',
     }
   });
   return data;
 }
 const ApiLunchRecipes = async (): Promise<RecipesResponse> => {
-  const { data } = await apiClient.get('/recipes/meal-type/lunch', {
+  const { data } = await ApiClient.get('/recipes/meal-type/lunch', {
     params: {
       select: paramSelect,
       limit: paramLimit,
@@ -48,7 +50,7 @@ const ApiLunchRecipes = async (): Promise<RecipesResponse> => {
   return data;
 }
 const ApiDinnerRecipes = async (): Promise<RecipesResponse> => {
-  const { data } = await apiClient.get('/recipes/meal-type/dinner', {
+  const { data } = await ApiClient.get('/recipes/meal-type/dinner', {
     params: {
       select: paramSelect,
       limit: paramLimit,
@@ -62,7 +64,7 @@ const Homepage = () => {
     queries: [
       { queryKey: ['newest-recipes'], queryFn: ApiNewestRecipes },
       { queryKey: ['appetizer-recipes'], queryFn: ApiAppetizerRecipes },
-      { queryKey: ['breakfast-recipes'], queryFn: ApiBreakfastRecipes },
+      { queryKey: ['asian-recipes'], queryFn: ApiAsianRecipes },
       { queryKey: ['lunch-recipes'], queryFn: ApiLunchRecipes },
       { queryKey: ['dinner-recipes'], queryFn: ApiDinnerRecipes },
     ],
@@ -70,7 +72,7 @@ const Homepage = () => {
 
   const newestQuery = results[0];
   const appetizerQuery = results[1];
-  const breakfastQuery = results[2];
+  const asianQuery = results[2];
   const lunchQuery = results[3];
   const dinnerQuery = results[4];
 
@@ -89,8 +91,8 @@ const Homepage = () => {
       />
       
       <RecipeBlock
-        title="Breakfast Recipes"
-        recipes={breakfastQuery.data?.recipes ?? []}
+        title="Asian Recipes"
+        recipes={asianQuery.data?.recipes ?? []}
       />
       
       <RecipeBlock

@@ -6,6 +6,7 @@ import "./globals.css";
 import ReactQueryProvider from "./provider";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
+import BackToTopButton from "@/components/back-to-top";
 
 const fontSans = Inter({
   variable: "--font-inter",
@@ -29,14 +30,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${fontSans.variable} ${fontMono.variable} antialiased`}>
+      <body className={`${fontSans.variable} ${fontMono.variable} antialiase`}>
         <ReactQueryProvider>
           <Header />
-          
-          <main className="container mx-auto px-4 py-4 mt-20">
-            {children}
-          </main>
-          
+
+          <div className="bg-main pt-20">
+            <main className="container mx-auto px-4 py-4">
+              {children}
+            </main>
+          </div>
+
+          <BackToTopButton />
           <Footer />
         </ReactQueryProvider>
       </body>

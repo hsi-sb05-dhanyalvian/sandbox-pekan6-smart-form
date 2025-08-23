@@ -7,9 +7,8 @@ import { usePathname, useParams } from "next/navigation";
 
 export const CreateBtn = () => {
   const path = usePathname();
-  const params = useParams();
-  const paramId = Number(params.id);
-  const showBtn = ['/', '/recipes/' + paramId].includes(path);
+  
+  const showBtn = ['/'].includes(path);
 
   if (!showBtn) return null;
 
@@ -22,7 +21,9 @@ export const CreateBtn = () => {
 
 export const BackBtn = () => {
   const path = usePathname();
-  const showBtn = ['/recipes/add'].includes(path);
+  const params = useParams();
+  const paramId = Number(params.id);
+  const showBtn = ['/recipes/add', '/recipes/' + paramId].includes(path);
 
   if (!showBtn) return null;
 

@@ -2,10 +2,10 @@
 
 const Footer = () => {
   return (
-    <footer className="bg-white border-t border-stone-200 py-8">
-      <div className="container mx-auto px-4">
+    <footer className="bg-white border-t border-boundary px-4 py-5">
+      <div className="container mx-auto">
         <div className="justify-between items-center text-center">
-          <p className="text-sm text-gray-700">Hak cipta © 2025 DNA. Seluruh hak cipta dilindungi undang-undang.</p>
+          <p className="text-sm text-secondary">Copyright © 2025 DNA. All rights reserved.</p>
         </div>
       </div>
     </footer>

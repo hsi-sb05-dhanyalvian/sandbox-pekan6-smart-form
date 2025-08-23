@@ -30,5 +30,5 @@ export interface RecipesResponse {
 export interface RecipesProps {
   title: string,
   recipes: Recipe[];
-  loader?: any;
+  loader?: React.ReactNode;
 }

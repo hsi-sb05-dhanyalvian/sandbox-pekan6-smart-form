@@ -10,13 +10,13 @@ import { useForm, SubmitHandler, Resolver } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Recipe } from "@/types/recipe";
 import { RecipeFormData, recipeFormSchema } from "@/validations/recipe";
-import { apiClient, apiDelay } from "@/libs/api";
+import { ApiClient, ApiDelay } from "@/libs/api";
 import { NotifMsg, NotifTimeout } from "@/libs/messages";
 import LoaderComp from "@/components/loader";
 
 type NewRecipeData = Omit<Recipe, 'id' | 'userId' | 'rating' | 'reviewCount'>;
 const ApiRecipeAdd = async (newRecipe: NewRecipeData): Promise<Recipe> => {
-  const response = await apiClient.post('/recipes/add?delay=' + apiDelay, newRecipe);
+  const response = await ApiClient.post('/recipes/add?delay=' + ApiDelay, newRecipe);
   return response.data;
 };
 
@@ -42,6 +42,7 @@ const RecipeAddPage = () => {
       setSuccessMsg(`Recipe "${data.name}" added successfully.`);
       setTimeout(() => setSuccessMsg(''), NotifTimeout);
       reset();
+      window.scrollTo({ top: 0, behavior: "smooth" });
     },
     onError: (error: Error) => {
       console.error("Error adding recipe:", error);
@@ -62,7 +63,7 @@ const RecipeAddPage = () => {
         <div className="space-y-12">
           <div className="border-b border-gray-900/10 pb-8">
             <h2 className="text-2xl font-semibold">Add Recipe</h2>
-            <p className="text-sm/6 text-gray-400 border-b border-gray-900/10 pb-3">Fill in the details of your recipe below.</p>
+            <p className="text-sm/6 text-secondary border-b border-gray-900/10 pb-3">Fill in the details of your recipe below.</p>
 
             <div className="mt-5 grid grid-cols-1 gap-x-5 gap-y-5 sm:grid-cols-6">
               <FormInputText

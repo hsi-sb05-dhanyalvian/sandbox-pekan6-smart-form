@@ -5,8 +5,8 @@ import RecipeCard from "./recipe-card";
 
 export const RecipeBlock = ({ title, recipes }: RecipesProps) => {
   return (
-    <div className="mb-7">
-      <h2 className="text-xl font-semibold">{title}</h2>
+    <div className="mb-6">
+      <h2 className="text-2xl font-semibold">{title}</h2>
       <div className="grid mt-3
         grid-cols-2 gap-6
         md:grid-cols-4
