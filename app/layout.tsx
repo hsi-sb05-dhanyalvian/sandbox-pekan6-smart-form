@@ -7,6 +7,7 @@ import ReactQueryProvider from "./provider";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import BackToTopButton from "@/components/back-to-top";
+import { Analytics } from "@vercel/analytics/next"
 
 const fontSans = Inter({
   variable: "--font-inter",
@@ -43,6 +44,7 @@ export default function RootLayout({
           <BackToTopButton />
           <Footer />
         </ReactQueryProvider>
+        <Analytics />
       </body>
     </html>
   );
