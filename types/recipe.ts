@@ -31,4 +31,5 @@ export interface RecipesProps {
   title: string,
   recipes: Recipe[];
   loader?: React.ReactNode;
+  isPending?: boolean;
 }

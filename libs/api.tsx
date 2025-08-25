@@ -10,4 +10,5 @@ export const ApiClient = axios.create({
   },
 });
 
+export const ApiLimit = Number(process.env.NEXT_PUBLIC_CONFIG_API_LIMIT ?? 10);
 export const ApiDelay = Number(process.env.NEXT_PUBLIC_CONFIG_API_DELAY ?? 1000);
